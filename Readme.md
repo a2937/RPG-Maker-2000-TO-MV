@@ -8,4 +8,5 @@ RPG Maker MV data files.
 1. First download and setup [EasyRPG's liblcf](https://github.com/EasyRPG/liblcf) library.
 2. Convert every binary RPG Maker 2000 and 2003 data file to XML.
 3. Put the new files into the "Old" directory.
-4. Run the
+4. Run `npm run start` in the commandline.
+5. Profit! 
