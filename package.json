@@ -2,15 +2,49 @@
   "name": "RPG 2000 TO MV",
   "version": "1.0.0",
   "description": "",
-  "main": "convert.js",
+  "main": "index.js",
+  "type": "module",
   "scripts": {
-    "start": "node convert.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "format": "prettier -w .",
+    "test": "mocha"
   },
   "keywords": [],
   "author": "= <=>",
   "license": "ISC",
   "dependencies": {
     "xml2js": "^0.6.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.8.0",
+    "@types/chai": "^4.3.11",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^20.14.12",
+    "@types/xml2js": "^0.4.14",
+    "chai": "^5.0.0",
+    "eslint": "^9.8.0",
+    "eslint-config-prettier": "^9.1.0",
+    "globals": "^15.8.0",
+    "husky": "^9.1.3",
+    "lint-staged": "^15.2.7",
+    "mocha": "^10.2.0",
+    "prettier": "^3.3.3",
+    "pretty-quick": "^4.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3",
+    "typescript-eslint": "^7.17.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm test"
+    }
+  },
+  "lint-staged": {
+    "*.{ts}": [
+      "pretty-quick --staged",
+      "eslint --fix",
+      "git add"
+    ]
   }
 }

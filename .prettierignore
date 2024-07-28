@@ -1,0 +1,4 @@
+package.json
+pnpm-lock.json
+dist
+node_modules

@@ -1,0 +1,35 @@
+export interface DBSkill {
+  id: string; 
+  name: string;
+  description: string;
+  using_message1: string;
+  using_message2: string;
+  failure_message: string;
+  type: string;
+  sp_type: string;
+  sp_percent: string;
+  sp_cost: string;
+  scope: string;
+  switch_id: string;
+  animation_id: string;
+  occasion_field: string;
+  occasion_battle: string;
+  physical_rate: string;
+  magical_rate: string;
+  variance: string;
+  power: string;
+  hit: string;
+  affect_hp: string;
+  affect_sp: string;
+  affect_attack: string;
+  affect_defense: string;
+  affect_spirit: string;
+  affect_agility: string;
+  absorb_damage: string;
+  ignore_defense: string;
+  state_effects: string;
+  attribute_effects: string;
+  affect_attr_defence: string;
+  battler_animation: string;
+  easyrpg_critical_hit_chance: string; 
+}

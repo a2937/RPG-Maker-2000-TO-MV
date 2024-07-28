@@ -9,4 +9,4 @@ RPG Maker MV data files.
 2. Convert every binary RPG Maker 2000 and 2003 data file to XML.
 3. Put the new files into the "Old" directory.
 4. Run `npm run start` in the commandline.
-5. Profit! 
+5. Profit!
