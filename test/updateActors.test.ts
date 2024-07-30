@@ -1,14 +1,14 @@
 import fs from 'fs';
 import { assert } from 'chai';
-import { updateActors } from '../src/updateActors.js';
+import { updateActors } from '../src/updateActors.mjs';
 import { Actor } from '../types/actor.js';
 
 const fixtureData = fs.readFileSync('./fixtures/RPG_RT.edb', 'utf-8');
 const fixtureActors = JSON.parse(await updateActors(fixtureData));
 
 const standardData = fs.readFileSync('./standards/Actors.json', 'utf-8');
-const standardActors : Actor[] = JSON.parse(standardData);
-    
+const standardActors: Actor[] = JSON.parse(standardData);
+
 describe('Actor Conversion: Array', function () {
   it('First element is null', function () {
     assert.isNull(fixtureActors[0]);
@@ -53,7 +53,7 @@ describe('Actor Conversion: Content', function () {
     assert.strictEqual(fixtureActors[1].equips[4], 0);
   });
   it('First Actor has a face name of "Actor2"', function () {
-    assert.strictEqual(fixtureActors[1].faceName, "Actor2");
+    assert.strictEqual(fixtureActors[1].faceName, 'Actor2');
   });
   it('First Actor has a traits property defined', function () {
     assert.isDefined(fixtureActors[1].traits);
@@ -61,20 +61,23 @@ describe('Actor Conversion: Content', function () {
   it('First Actor has an initial level of 1', function () {
     assert.strictEqual(fixtureActors[1].initialLevel, 1);
   });
-   it('First Actor has an max level of 99', function () {
-     assert.strictEqual(fixtureActors[1].maxLevel, 99);
-   });
+  it('First Actor has an max level of 99', function () {
+    assert.strictEqual(fixtureActors[1].maxLevel, 99);
+  });
   it('First Actor has a name of "Brian"', function () {
     assert.strictEqual(fixtureActors[1].name, 'Brian');
   });
   it('First Actor has a nickname of "Survivor"', function () {
     assert.strictEqual(fixtureActors[1].nickname, 'Survivor');
   });
-  it("Has all defined properties", function (done) {
+  it('Has all defined properties', function (done) {
     const firstActor = standardActors[1];
     const actorKeys = Object.keys(firstActor);
     for (let i = 0; i < actorKeys.length; i++) {
-      assert.isDefined(fixtureActors[1][actorKeys[i]], actorKeys[i] + " is not defined on the first actor");
+      assert.isDefined(
+        fixtureActors[1][actorKeys[i]],
+        actorKeys[i] + ' is not defined on the first actor'
+      );
     }
     done();
   });

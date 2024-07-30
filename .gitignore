@@ -14,3 +14,7 @@ node_modules/
 
 # Optional stylelint cache
 .stylelintcache
+
+# Output 
+build/
+*.blob

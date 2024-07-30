@@ -1,16 +1,13 @@
 import fs from 'fs';
 import { assert } from 'chai';
 import { Enemy } from '../types/enemy.js';
-import { updateEnemies } from '../src/updateEnemies.js';
+import { updateEnemies } from '../src/updateEnemies.mjs';
 
 const fixtureData = fs.readFileSync('./fixtures/RPG_RT.edb', 'utf-8');
 const fixtureEnemies = JSON.parse(await updateEnemies(fixtureData));
 
 const standardData = fs.readFileSync('./standards/Enemies.json', 'utf-8');
 const standardEnemies: Enemy[] = JSON.parse(standardData);
-
-
-
 
 describe('Enemy Conversion: Array', function () {
   it('First element is null', function () {
@@ -24,13 +21,12 @@ describe('Enemy Conversion: Array', function () {
   });
 });
 
-
 describe('Enemy Conversion: Content', function () {
   it('First Enemy has an id of 1', function () {
     assert.strictEqual(fixtureEnemies[1].id, 1);
   });
   it('First Enemy has a name of "Slime"', function () {
-    assert.strictEqual(fixtureEnemies[1].name, "Slime");
+    assert.strictEqual(fixtureEnemies[1].name, 'Slime');
   });
   it('First Enemy has a battler name of "Slime"', function () {
     assert.strictEqual(fixtureEnemies[1].battlerName, 'Slime');

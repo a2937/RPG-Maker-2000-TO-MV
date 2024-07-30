@@ -1,4 +1,5 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
     "sourceMap": true,
     "module": "nodenext",
@@ -9,6 +10,12 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "strict": true
-  }
+    "strict": true,
+    "outDir": "build" // Types should go into this directory.
+  },
+  "ts-node": {
+    "esm": true // «———— enabling ESM for ts-node
+  },
+  "include": ["src/**/*.ts", "src/updateActors.mts", "src/updateSkills.mts", "src/updateItems.mts", "src/updateEnemies.mts"],
+  "exclude": ["node_modules"]
 }

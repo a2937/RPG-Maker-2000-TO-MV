@@ -3,8 +3,8 @@ export interface DBActor {
   title: string;
   character_name: string;
   character_index: string;
-  initial_level: string; 
-  final_level: string; 
+  initial_level: string;
+  final_level: string;
   face_name: string;
   face_index: string;
   initial_equipment: InitialEquipment;
@@ -16,13 +16,11 @@ export interface InitialEquipment {
 }
 
 export interface EquipmentHolder {
-  Equipment : EquipmentHold; 
+  Equipment: EquipmentHold;
 }
 
-
-export interface EquipmentHold
-{
-  [slot: number]: Equipment; 
+export interface EquipmentHold {
+  [slot: number]: Equipment;
 }
 
 export interface Equipment {

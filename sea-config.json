@@ -1,0 +1,4 @@
+{
+  "main": "build/index.js",
+  "output": "build/rpg-convert.blob"
+}

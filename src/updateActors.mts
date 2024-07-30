@@ -7,11 +7,7 @@ import { Actor } from '../types/actor.js';
  * @param {number} i
  * @param {DBActor} dbActor
  */
-function readActorData(
-  actors: Actor[],
-  i: number,
-  dbActor: DBActor
-) {
+function readActorData(actors: Actor[], i: number, dbActor: DBActor) {
   if (actors[i + 1] == null) {
     actors[i + 1] = {} as Actor;
     actors[i + 1].equips = [];
@@ -63,11 +59,8 @@ export async function updateActors(
 
     const actors: Actor[] = [];
     database.actors[0].Actor.forEach(
-      (
-        Actor: DBActor,
-        /** @type {number} */ i: number
-      ) => {
-        readActorData(actors, i,Actor);
+      (Actor: DBActor, /** @type {number} */ i: number) => {
+        readActorData(actors, i, Actor);
       }
     );
 

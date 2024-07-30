@@ -2,10 +2,16 @@
   "name": "RPG 2000 TO MV",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.ts",
   "type": "module",
   "scripts": {
-    "start": "node index.js",
+    "tsc": "tsc",
+    "start:dev": "node --loader ts-node/esm src/index.ts",
+    "start:prod": "node build/index.js",
+    "compile": "tsc",
+    "clean": "rimraf build",
+    "prebuild": "pnpm run compile",
+    "build": "node --experimental-sea-config sea-config.json",
     "format": "prettier -w .",
     "test": "mocha"
   },
@@ -13,10 +19,12 @@
   "author": "= <=>",
   "license": "ISC",
   "dependencies": {
+    "commander": "^12.1.0",
     "xml2js": "^0.6.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.8.0",
+    "@tsconfig/node-lts-strictest-esm": "^18.12.1",
     "@types/chai": "^4.3.11",
     "@types/mocha": "^10.0.6",
     "@types/node": "^20.14.12",
@@ -30,6 +38,7 @@
     "mocha": "^10.2.0",
     "prettier": "^3.3.3",
     "pretty-quick": "^4.0.0",
+    "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3",
     "typescript-eslint": "^7.17.0"

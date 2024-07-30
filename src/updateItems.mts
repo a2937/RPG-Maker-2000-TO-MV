@@ -2,7 +2,6 @@ import { convertableToString, parseStringPromise } from 'xml2js';
 import { DBItem } from '../types/dbItem.js';
 import { Damage, Effect, Item } from '../types/item.js';
 
-
 /**
  * @param {Item[]} items
  * @param {number} i
@@ -45,14 +44,13 @@ function readItemData(items: Item[], i: number, dbItem: DBItem) {
   items[i + 1].effects = [] as Effect[];
   items[i + 1].iconIndex = -1;
   items[i + 1].scope = 7;
-  items[i + 1].speed = 0; 
+  items[i + 1].speed = 0;
   items[i + 1].successRate = 100;
   items[i + 1].tpGain = 0;
-  
+
   // TODO: There are a few possibilities to explore like occasion_field1
   items[i + 1].occasion = 0;
 }
-
 
 /**
  * @param {String} oldDatabaseXml
@@ -66,11 +64,8 @@ export async function updateItems(
 
     const items: Item[] = [];
     database.items[0].Item.forEach(
-      (
-        Item: DBItem,
-        /** @type {number} */ i: number
-      ) => {
-        readItemData(items, i,Item);
+      (Item: DBItem, /** @type {number} */ i: number) => {
+        readItemData(items, i, Item);
       }
     );
 

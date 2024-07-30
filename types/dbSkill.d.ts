@@ -1,5 +1,5 @@
 export interface DBSkill {
-  id: string; 
+  id: string;
   name: string;
   description: string;
   using_message1: string;
@@ -31,5 +31,5 @@ export interface DBSkill {
   attribute_effects: string;
   affect_attr_defence: string;
   battler_animation: string;
-  easyrpg_critical_hit_chance: string; 
+  easyrpg_critical_hit_chance: string;
 }

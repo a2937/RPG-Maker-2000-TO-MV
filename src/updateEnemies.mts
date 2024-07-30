@@ -2,8 +2,6 @@ import { convertableToString, parseStringPromise } from 'xml2js';
 import { DBEnemy } from '../types/dbEnemy.js';
 import { DropItem, Enemy } from '../types/enemy.js';
 
-
-
 /**
  * @param {Enemy[]} enemies
  * @param {number} i
@@ -27,11 +25,11 @@ function readEnemyData(enemies: Enemy[], i: number, dbEnemy: DBEnemy) {
   enemies[i + 1].exp = parseInt(dbEnemy.exp);
 
   enemies[i + 1].params = [];
-  enemies[i + 1].params.push(parseInt(dbEnemy.max_hp)); 
-  
+  enemies[i + 1].params.push(parseInt(dbEnemy.max_hp));
+
   // Incomplete match; TODO: Verify
-  enemies[i + 1].params.push(parseInt(dbEnemy.max_sp)); 
-  enemies[i + 1].params.push(parseInt(dbEnemy.attack)); 
+  enemies[i + 1].params.push(parseInt(dbEnemy.max_sp));
+  enemies[i + 1].params.push(parseInt(dbEnemy.attack));
   enemies[i + 1].params.push(parseInt(dbEnemy.defense));
   enemies[i + 1].params.push(parseInt(dbEnemy.attack));
   enemies[i + 1].params.push(parseInt(dbEnemy.defense));
@@ -39,21 +37,18 @@ function readEnemyData(enemies: Enemy[], i: number, dbEnemy: DBEnemy) {
   enemies[i + 1].params.push(parseInt(dbEnemy.spirit));
 
   // Unable to match. TODO: Research further
-  enemies[i + 1].note = ""; 
+  enemies[i + 1].note = '';
 
   enemies[i + 1].actions = [];
   enemies[i + 1].traits = [];
 
-
-enemies[i + 1].dropItems = [];
+  enemies[i + 1].dropItems = [];
   const dropItem = {} as DropItem;
   dropItem.dataId = parseInt(dbEnemy.drop_id);
   dropItem.denominator = 1;
-  dropItem.kind = 0; 
-  enemies[i + 1].dropItems.push(dropItem); 
- 
+  dropItem.kind = 0;
+  enemies[i + 1].dropItems.push(dropItem);
 }
-
 
 /**
  * @param {String} oldDatabaseXml
@@ -67,11 +62,8 @@ export async function updateEnemies(
 
     const enemies: Enemy[] = [];
     database.enemies[0].Enemy.forEach(
-      (
-        Enemy: DBEnemy,
-        /** @type {number} */ i: number
-      ) => {
-        readEnemyData(enemies, i,Enemy);
+      (Enemy: DBEnemy, /** @type {number} */ i: number) => {
+        readEnemyData(enemies, i, Enemy);
       }
     );
 
