@@ -4,6 +4,8 @@ import { updateSkills } from './updateSkills.mjs';
 import fs from 'fs/promises';
 import { Command } from 'commander';
 import { PathLike } from 'fs';
+import { updateEnemies } from './updateEnemies.mjs';
+import { updateTroops } from './updateTroops.mjs';
 
 const program = new Command();
 
@@ -47,6 +49,16 @@ async function main() {
       console.log('Updating skills');
       const updatedSkillsJson = await updateSkills(oldDatabaseXml);
       await fs.writeFile(skillsPath, updatedSkillsJson,{encoding:"utf-8"});
+      console.log('Updating enemies');
+      const updatedEnemiesJson = await updateEnemies(oldDatabaseXml);
+      await fs.writeFile(skillsPath, updatedEnemiesJson, {
+        encoding: 'utf-8'
+      });
+      console.log('Updating troops');
+      const updatedTroopsJson = await updateTroops(oldDatabaseXml);
+      await fs.writeFile(skillsPath, updatedTroopsJson, {
+        encoding: 'utf-8'
+      });
     } else {
       console.error(
         'Error: RPG_RT.edb not found. Please check the provided file path and spelling.'
@@ -62,3 +74,5 @@ async function main() {
 }
 
 main();
+
+
