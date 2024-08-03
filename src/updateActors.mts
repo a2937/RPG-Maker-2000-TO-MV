@@ -3,7 +3,7 @@ import { DBActor } from '../types/dbActor.js';
 import { Actor } from '../types/actor.js';
 
 /**
- * @param {{ [x: string]: any; }} actors
+ * @param {Actor[]} actors
  * @param {number} i
  * @param {DBActor} dbActor
  */

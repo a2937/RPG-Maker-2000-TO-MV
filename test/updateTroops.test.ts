@@ -32,6 +32,20 @@ describe('Troop Conversion: Content', function () {
    it('First Troop has five members', function () {
      assert.strictEqual(fixtureTroops[1].members.length, 5);
    });
+   it('Has all defined properties', function (done) {
+     const firstTroop = standardTroops[1];
+     const troopKeys = Object.keys(firstTroop);
+     for (let i = 0; i < troopKeys.length; i++) {
+       assert.isDefined(
+         fixtureTroops[1][troopKeys[i]],
+         troopKeys[i] + ' is not defined on the first troop'
+       );
+     }
+     done();
+   });
+});
+
+describe("Troop Conversion: First Troop members", function () {
   it('First Troop member has an enemy id of 1', function () {
     assert.strictEqual(fixtureTroops[1].members[0].enemyId, 1);
   });
@@ -41,9 +55,9 @@ describe('Troop Conversion: Content', function () {
   it('First Troop member has an y value of 88', function () {
     assert.strictEqual(fixtureTroops[1].members[0].y, 88);
   });
-   it('First Troop member has an value of hidden set to false', function () {
-     assert.isFalse(fixtureTroops[1].members[0].hidden);
-   });
+  it('First Troop member has an value of hidden set to false', function () {
+    assert.isFalse(fixtureTroops[1].members[0].hidden);
+  });
   it('Second Troop member has an enemy id of 1', function () {
     assert.strictEqual(fixtureTroops[1].members[1].enemyId, 1);
   });
@@ -92,15 +106,4 @@ describe('Troop Conversion: Content', function () {
   it('Fifth Troop member has an value of hidden set to false', function () {
     assert.isFalse(fixtureTroops[1].members[4].hidden);
   });
-   it('Has all defined properties', function (done) {
-     const firstSkill = standardTroops[1];
-     const enemyKeys = Object.keys(firstSkill);
-     for (let i = 0; i < enemyKeys.length; i++) {
-       assert.isDefined(
-         fixtureTroops[1][enemyKeys[i]],
-         enemyKeys[i] + ' is not defined on the first enemy'
-       );
-     }
-     done();
-   });
 });

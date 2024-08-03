@@ -70,10 +70,7 @@ function readTroopData(troops: Troop[], i: number, dbTroop: DBTroop) {
     
    troops[i + 1].pages[pageIndex].conditions.turnB = parseInt(
      conditions.turn_b
-   );
-
-
-    
+   ); 
     // TODO: Add event commands
   });
 
