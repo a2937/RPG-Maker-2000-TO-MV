@@ -25,8 +25,7 @@ function readTroopData(troops: Troop[], i: number, dbTroop: DBTroop) {
   }
   troops[i + 1].id = i + 1; 
   troops[i + 1].name = dbTroop.name[0];
-  troops[i + 1].members = [] as Members; 
-  console.log(dbTroop.members); 
+  troops[i + 1].members = [] as Members;  
   dbTroop.members[0].TroopMember.forEach(
     (member: DBMember, memberIndex: number) => {
       if (troops[i + 1].members[memberIndex] == null) {
