@@ -65,7 +65,7 @@ export interface DBPage {
   animation_type: string;
   move_speed: string;
   move_route: MoveRoute;
-  event_commands: EventCommandsClass | string;
+  event_commands: EventCommandsClass[];
 }
 
 
@@ -106,10 +106,10 @@ export enum RPGBool {
 }
 
 export interface EventCommandsClass {
-  EventCommand: EventCommand[];
+  EventCommand: DBEventCommand[];
 }
 
-export interface EventCommand {
+export interface DBEventCommand {
   code: string;
   indent: string;
   string: string;

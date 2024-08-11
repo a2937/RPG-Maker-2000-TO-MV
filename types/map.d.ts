@@ -52,7 +52,7 @@ export interface Page {
   conditions: Conditions;
   directionFix: boolean;
   image: Image;
-  list: EventCode[];
+  list: EventCommand[];
   moveFrequency: number;
   moveRoute: MoveRoute;
   moveSpeed: number;
@@ -88,7 +88,7 @@ export interface Image {
   characterIndex: number;
 }
 
-export interface EventCode {
+export interface EventCommand {
   code: number;
   indent: number;
   parameters: unknown[];

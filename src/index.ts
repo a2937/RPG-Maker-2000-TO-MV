@@ -20,9 +20,9 @@ program.parse(process.argv);
 
 const options = program.opts();
 
-const oldPath = options.oldPath ? path.resolve(options.oldPath) : 'Old';
+const oldPath = options.oldPath ? path.resolve(options.oldPath) : 'fixtures';
 
-const newPath = options.newPath ? path.resolve(options.newPath) : 'New';
+const newPath = options.newPath ? path.resolve(options.newPath) : 'output';
 
 const oldDatabasePath = path.join(oldPath, 'RPG_RT.edb');
 const oldMapTreePath = path.join(oldPath, 'RPG_RT.emt');
@@ -54,15 +54,21 @@ async function exists(f: PathLike) {
 
 async function main() {
   try {
-    if (await exists(oldDatabasePath) && await exists(oldMapTreePath)) {
+    const oldDBExists = await exists(oldDatabasePath); 
+    const oldMapTreeExists = await exists(oldMapTreePath);
+    const newPathExists = await exists(newPath); 
+    if (oldDBExists  && oldMapTreeExists) {
+      if (!newPathExists) {
+        await fs.mkdir(newPath, { recursive: true });
+      }
       console.log('Updating actors');
-      const oldDatabaseXml = await fs.readFile(oldDatabasePath, "utf-8");
+      const oldDatabaseXml = await fs.readFile(oldDatabasePath, 'utf-8');
       const oldMapTreeXML = await fs.readFile(oldMapTreePath, 'utf-8');
       const updatedActorsJson = await updateActors(oldDatabaseXml);
       await fs.writeFile(actorsPath, updatedActorsJson, { encoding: 'utf-8' });
       console.log('Updating skills');
       const updatedSkillsJson = await updateSkills(oldDatabaseXml);
-      await fs.writeFile(skillsPath, updatedSkillsJson,{encoding:"utf-8"});
+      await fs.writeFile(skillsPath, updatedSkillsJson, { encoding: 'utf-8' });
       console.log('Updating enemies');
       const updatedEnemiesJson = await updateEnemies(oldDatabaseXml);
       await fs.writeFile(enemiesPath, updatedEnemiesJson, {
@@ -84,21 +90,23 @@ async function main() {
         encoding: 'utf-8'
       });
 
-      console.log("Updating maps"); 
+      console.log('Updating maps');
 
       const files = await fs.readdir(oldPath);
-      const matchedFiles = files.filter(file => mapPattern.test(file)); 
+      const matchedFiles = files.filter((file) => mapPattern.test(file));
 
       matchedFiles.forEach(async (file) => {
-      const filePath = path.join(oldPath, file);
-      console.log('Reading file:', filePath);
-      const mapData = await fs.readFile(filePath, 'utf-8');
-      const match = file.match(mapPattern);
-      if (match) {
-        const number = parseInt(match[1]);
-        updateMap(mapData, oldMapTreeXML,number);
-      }
-    });
+        const filePath = path.join(oldPath, file);
+        console.log('Reading file:', filePath);
+        const mapData = await fs.readFile(filePath, 'utf-8');
+        const match = file.match(mapPattern);
+        if (match) {
+          const number = parseInt(match[1]);
+          const newMapData = await updateMap(mapData, oldMapTreeXML, number);
+          const newMapPath = path.join(newPath, "Map" + number.toString().padStart(3, "0") + ".json"); 
+          await fs.writeFile(newMapPath, newMapData); 
+        }
+      });
     } else {
       console.error(
         'Error: RPG_RT.edb or RPG_RT.emt not found. Please check the provided file path and spelling.'

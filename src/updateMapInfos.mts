@@ -12,7 +12,7 @@ function readMapInfoData(mapInfos: MapInfo[], i: number, dbMapInfo: DBMapInfo,ma
   mapInfos[i + 1].expanded = dbMapInfo.expanded_node[0] === "T"; 
   mapInfos[i + 1].scrollX = parseInt(dbMapInfo.scrollbar_x); 
   mapInfos[i + 1].scrollY = parseInt(dbMapInfo.scrollbar_y); 
-  mapInfos[i + 1].order = mapOrder.indexOf(i.toString()) + 1; 
+  mapInfos[i + 1].order = parseInt(mapOrder[i]); 
 }
 
 
@@ -26,12 +26,14 @@ export async function updateMapInfos(
   try {
     const result = await parseStringPromise(oldDatabaseXml);
     const database = result.LMT.TreeMap[0];
-    const mapOrder = database.tree_order[0].trim().split(" "); 
+    const mapOrder = database.tree_order[0].trim().split(' ');
+    mapOrder.shift();// NOTE: Map 000 doesn't count
     const mapInfos: MapInfo[] = [];
-
-    database.maps[0].MapInfo.forEach(
+    const oldMapData = database.maps[0].MapInfo;
+    oldMapData.shift()  /// Map000 is the title 
+    oldMapData.forEach(
       (MapInfo: DBMapInfo, /** @type {number} */ i: number) => {
-        readMapInfoData(mapInfos, i, MapInfo,mapOrder);
+        readMapInfoData(mapInfos, i, MapInfo, mapOrder);
       }
     );
 

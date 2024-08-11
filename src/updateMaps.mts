@@ -1,16 +1,35 @@
 import { convertableToString, parseStringPromise } from 'xml2js';
-import { Event, Image, Map, Page, Conditions, Bgm, Bgs } from '../types/map.js';
-import { DBMap, DBEvent,DBPage} from '../types/dbMap.js';
+import { Event, Image, Map, Page, Conditions, Bgm, Bgs, EventCommand } from '../types/map.js';
+import { DBMap, DBEvent,DBPage, DBEventCommand} from '../types/dbMap.js';
 import { DBMapInfo } from '../types/dbMapInfos.js';
 
 
-/*
-const eventCodeTranslator = {
+
+const eventCodeTranslator: { [key: number]: number } = {
   11030: 223, // Tint screen
   10810: 201, // Transfer player
-  22410: 108 // Comment code
+  22410: 108, // Comment code
+  10130: 101, // Set speaker
+  10110: -1, // In 2000/2003 this is the heading thingy
+  20110: 401 // Continue talk
 };
-*/ 
+
+/**
+ * 
+ * @param {string} input 
+ */
+function convertToNum(input : string)
+{
+  if (!Number.isNaN(input))
+  {
+    return Number.parseInt(input);
+  }
+  else 
+  {
+    return input; 
+  }
+}
+
 
 function readMapData(map: Map, oldMap: DBMap, oldMapInfo : DBMapInfo) {
   map.tilesetId = parseInt(oldMap.chipset_id);
@@ -63,7 +82,7 @@ function readMapData(map: Map, oldMap: DBMap, oldMapInfo : DBMapInfo) {
     map.events[eventIndex + 1] = {} as Event;
     map.events[eventIndex + 1].note = ""; 
     map.events[eventIndex + 1].id = eventIndex + 1;
-    map.events[eventIndex + 1].name = oldEvent.name;
+    map.events[eventIndex + 1].name = oldEvent.name[0];
     if (map.events[eventIndex + 1].pages == null) {
       map.events[eventIndex + 1].pages = [] as Page[];
     }
@@ -93,14 +112,83 @@ function readMapData(map: Map, oldMap: DBMap, oldMapInfo : DBMapInfo) {
 
 
       map.events[eventIndex + 1].pages[pageIndex].image = {} as Image;
-      map.events[eventIndex + 1].pages[pageIndex].image.characterName = oldPage.character_name[0];
-      map.events[eventIndex + 1].pages[pageIndex].image.characterIndex = parseInt(oldPage.character_index);
+
+     
       map.events[eventIndex + 1].pages[pageIndex].image.direction = parseInt(oldPage.character_direction);
       map.events[eventIndex + 1].pages[pageIndex].image.pattern = parseInt(oldPage.character_pattern);
-
+      if (oldPage.character_name[0] != "")
+      {
+        map.events[eventIndex + 1].pages[pageIndex].image.characterName = oldPage.character_name[0];
+        // This is a character
+        map.events[eventIndex + 1].pages[pageIndex].image.tileId = 0; 
+        map.events[eventIndex + 1].pages[pageIndex].image.characterIndex = parseInt(oldPage.character_index);
+      }
+      else 
+      {
+        map.events[eventIndex + 1].pages[pageIndex].image.characterName = ""; 
+        map.events[eventIndex + 1].pages[pageIndex].image.characterIndex = 0; 
+        map.events[eventIndex + 1].pages[pageIndex].image.tileId = parseInt(
+             oldPage.character_index
+           ); 
+      }
       map.events[eventIndex + 1].pages[pageIndex].moveFrequency = parseInt(oldPage.move_frequency);
+      
+      const oldCommands = oldPage.event_commands[0]; 
 
-      // TODO: Add in commands
+      map.events[eventIndex + 1].pages[pageIndex].list = [];
+      
+      if (oldCommands.EventCommand != null)
+      {
+        const properCommands = oldCommands.EventCommand as DBEventCommand[];
+        let lastSpeechBubble: EventCommand = {} as EventCommand; 
+        properCommands.forEach((command) => {
+          // TODO: Check for the rest of the commands
+          
+          const newCode = eventCodeTranslator[parseInt(command.code)] as number;
+
+          if (newCode == -1 && lastSpeechBubble.code != null)
+          {
+             map.events[eventIndex + 1].pages[pageIndex].list.push(
+              lastSpeechBubble
+             );
+            // Begin New dialog 
+          }
+          else 
+          {
+              const newIndent = parseInt(command.indent);
+              const parameters: unknown[] = [];
+              
+              const commandString =
+                command.string == null ? '' : command.string + ' ';
+              parameters.push(commandString); 
+              if (command.parameters[0] != null)
+              {
+
+                parameters.push(
+                  ...command.parameters[0].split(' ').map(convertToNum)
+                ); 
+              }
+              const eventCommand = {
+                code: newCode,
+                indent: newIndent,
+                parameters: parameters
+            }
+            if (eventCommand.code == 101) // Set speaker
+            {
+              lastSpeechBubble = eventCommand; 
+              // Storing for later 
+            }
+            else 
+            {
+              // Adding to list 
+                map.events[eventIndex + 1].pages[pageIndex].list.push(eventCommand);
+            }
+          }
+
+        });
+        const emptyCommand = { code: 0, indent: 0, parameters:[]}; 
+        map.events[eventIndex + 1].pages[pageIndex].list.push(emptyCommand);
+      }
     });
 
     map.events[eventIndex + 1].x = parseInt(oldEvent.x);

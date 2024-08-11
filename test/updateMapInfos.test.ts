@@ -20,7 +20,7 @@ describe('Map Info Conversion: Array', function () {
     assert.isNotNull(fixtureMapInfo[1]);
   });
   it('Has a length of five', function () {
-    assert.strictEqual(fixtureMapInfo.length, 5);
+    assert.strictEqual(fixtureMapInfo.length, 4);
   });
 });
 
@@ -28,32 +28,26 @@ describe("Map Info data conversion", function () {
   it('First Map Info has an id of 1', function () {
     assert.strictEqual(fixtureMapInfo[1].id, 1);
   });
-  it('First Map Info has a name of "Picture Tutorial"', function () {
-    assert.strictEqual(fixtureMapInfo[1].name, 'Picture Tutorial');
+  it('First Map Info has a name of "Basement"', function () {
+    assert.strictEqual(fixtureMapInfo[1].name, 'Basement');
   });
-   it('First Map Info is expanded', function () {
-     assert.isTrue(fixtureMapInfo[1].expanded); 
+   it('First Map Info is not expanded', function () {
+     assert.isFalse(fixtureMapInfo[1].expanded); 
    });
-   it('First Map Info is ordered as the first map', function () {
-     assert.strictEqual(fixtureMapInfo[1].order,1);
+   it('First Map Info is ordered as the map 1', function () {
+     assert.strictEqual(fixtureMapInfo[1].order,3);
    });
   it('Second Map Info has an id of 2', function () {
     assert.strictEqual(fixtureMapInfo[2].id, 2);
   });
   it('Second Map Info has map 4', function () {
-    assert.strictEqual(fixtureMapInfo[2].order, 4);
+    assert.strictEqual(fixtureMapInfo[2].order, 2);
   });
    it('Third Map Info has an id of 3', function () {
-     assert.strictEqual(fixtureMapInfo[3].order, 3);
+     assert.strictEqual(fixtureMapInfo[3].id, 3);
    });
-  it('Third Map Info has map 3', function () {
-    assert.strictEqual(fixtureMapInfo[3].order, 3);
-  });
-  it('Fourth Map Info has an id of 4', function () {
-    assert.strictEqual(fixtureMapInfo[4].id,4 );
-  });
-  it('Fourth Map Info has map 2', function () {
-    assert.strictEqual(fixtureMapInfo[4].order, 2);
+  it('Third Map Info is ordered as map 3', function () {
+    assert.strictEqual(fixtureMapInfo[3].order, 1);
   });
   it('Has all defined properties', function (done) {
     const firstMapInfo = standardMapInfo[1];
