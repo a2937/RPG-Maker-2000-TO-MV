@@ -1,4 +1,5 @@
 export interface DBMapInfo {
+  $: ID; 
   name: string;
   parent_map: string;
   indentation: string;
@@ -7,7 +8,7 @@ export interface DBMapInfo {
   scrollbar_y: string;
   expanded_node: string;
   music_type: string;
-  music: Music;
+  music: Music[];
   background_type: string;
   background_name: string;
   teleport: string;
@@ -18,6 +19,10 @@ export interface DBMapInfo {
   area_rect: AreaRect;
 }
 
+export interface ID
+{
+  id: string 
+}
 export interface AreaRect {
   Rect: Rect;
 }
@@ -30,7 +35,7 @@ export interface Rect {
 }
 
 export interface Music {
-  Music: MusicClass;
+  Music: MusicClass[];
 }
 
 export interface MusicClass {

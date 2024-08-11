@@ -8,6 +8,7 @@ import { updateEnemies } from './updateEnemies.mjs';
 import { updateTroops } from './updateTroops.mjs';
 import { updateStates } from './updateStates.mjs';
 import { updateMapInfos } from './updateMapInfos.mjs';
+import { updateMap } from './updateMaps.mjs';
 
 const program = new Command();
 
@@ -31,6 +32,10 @@ const enemiesPath = path.join(newPath, 'Enemies.json');
 const troopsPath = path.join(newPath, 'Troops.json');
 const statesPath = path.join(newPath, 'States.json');
 const mapInfosPath = path.join(newPath, 'MapInfos.json');
+
+
+
+const mapPattern = /^Map(\d{4})\.emu$/;
 
 
 /**
@@ -78,6 +83,22 @@ async function main() {
       await fs.writeFile(mapInfosPath, updatedMapInfoJson, {
         encoding: 'utf-8'
       });
+
+      console.log("Updating maps"); 
+
+      const files = await fs.readdir(oldPath);
+      const matchedFiles = files.filter(file => mapPattern.test(file)); 
+
+      matchedFiles.forEach(async (file) => {
+      const filePath = path.join(oldPath, file);
+      console.log('Reading file:', filePath);
+      const mapData = await fs.readFile(filePath, 'utf-8');
+      const match = file.match(mapPattern);
+      if (match) {
+        const number = parseInt(match[1]);
+        updateMap(mapData, oldMapTreeXML,number);
+      }
+    });
     } else {
       console.error(
         'Error: RPG_RT.edb or RPG_RT.emt not found. Please check the provided file path and spelling.'
