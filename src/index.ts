@@ -9,6 +9,7 @@ import { updateTroops } from './updateTroops.mjs';
 import { updateStates } from './updateStates.mjs';
 import { updateMapInfos } from './updateMapInfos.mjs';
 import { updateMap } from './updateMaps.mjs';
+import { updateTilesets} from './updateTilesets.mjs';
 
 const program = new Command();
 
@@ -32,7 +33,7 @@ const enemiesPath = path.join(newPath, 'Enemies.json');
 const troopsPath = path.join(newPath, 'Troops.json');
 const statesPath = path.join(newPath, 'States.json');
 const mapInfosPath = path.join(newPath, 'MapInfos.json');
-
+const tilesetsPath = path.join(newPath, 'Tilesets.json');
 
 
 const mapPattern = /^Map(\d{4})\.emu$/;
@@ -89,6 +90,12 @@ async function main() {
         encoding: 'utf-8'
       });
       console.log('Wrote: ' + statesPath);
+       console.log('Updating tilesets');
+       const updatedTilesetJson = await updateTilesets(oldMapTreeXML);
+       await fs.writeFile(tilesetsPath, updatedTilesetJson, {
+         encoding: 'utf-8'
+       });
+      console.log('Wrote: ' + tilesetsPath);
       console.log('Updating map infos');
       const updatedMapInfoJson = await updateMapInfos(oldMapTreeXML);
       await fs.writeFile(mapInfosPath, updatedMapInfoJson, {
