@@ -9,6 +9,7 @@ import { updateTroops } from './updateTroops.mjs';
 import { updateStates } from './updateStates.mjs';
 import { updateMapInfos } from './updateMapInfos.mjs';
 import { updateMap } from './updateMaps.mjs';
+import { updateTilesets} from './updateTilesets.mjs';
 
 const program = new Command();
 
@@ -32,7 +33,7 @@ const enemiesPath = path.join(newPath, 'Enemies.json');
 const troopsPath = path.join(newPath, 'Troops.json');
 const statesPath = path.join(newPath, 'States.json');
 const mapInfosPath = path.join(newPath, 'MapInfos.json');
-
+const tilesetsPath = path.join(newPath, 'Tilesets.json');
 
 
 const mapPattern = /^Map(\d{4})\.emu$/;
@@ -66,30 +67,41 @@ async function main() {
       const oldMapTreeXML = await fs.readFile(oldMapTreePath, 'utf-8');
       const updatedActorsJson = await updateActors(oldDatabaseXml);
       await fs.writeFile(actorsPath, updatedActorsJson, { encoding: 'utf-8' });
+      console.log('Wrote: ' + actorsPath);
       console.log('Updating skills');
       const updatedSkillsJson = await updateSkills(oldDatabaseXml);
       await fs.writeFile(skillsPath, updatedSkillsJson, { encoding: 'utf-8' });
+      console.log('Wrote: ' + skillsPath);
       console.log('Updating enemies');
       const updatedEnemiesJson = await updateEnemies(oldDatabaseXml);
       await fs.writeFile(enemiesPath, updatedEnemiesJson, {
         encoding: 'utf-8'
       });
+      console.log('Wrote: ' + enemiesPath);
       console.log('Updating troops');
       const updatedTroopsJson = await updateTroops(oldDatabaseXml);
       await fs.writeFile(troopsPath, updatedTroopsJson, {
         encoding: 'utf-8'
       });
+      console.log('Wrote: ' + troopsPath);
       console.log('Updating states');
       const updatedStatesJson = await updateStates(oldDatabaseXml);
       await fs.writeFile(statesPath, updatedStatesJson, {
         encoding: 'utf-8'
       });
+      console.log('Wrote: ' + statesPath);
+       console.log('Updating tilesets');
+       const updatedTilesetJson = await updateTilesets(oldMapTreeXML);
+       await fs.writeFile(tilesetsPath, updatedTilesetJson, {
+         encoding: 'utf-8'
+       });
+      console.log('Wrote: ' + tilesetsPath);
       console.log('Updating map infos');
       const updatedMapInfoJson = await updateMapInfos(oldMapTreeXML);
       await fs.writeFile(mapInfosPath, updatedMapInfoJson, {
         encoding: 'utf-8'
       });
-
+      console.log('Wrote: ' + mapInfosPath);
       console.log('Updating maps');
 
       const files = await fs.readdir(oldPath);
@@ -105,6 +117,7 @@ async function main() {
           const newMapData = await updateMap(mapData, oldMapTreeXML, number);
           const newMapPath = path.join(newPath, "Map" + number.toString().padStart(3, "0") + ".json"); 
           await fs.writeFile(newMapPath, newMapData); 
+          console.log('Wrote: ' + newMapPath);
         }
       });
     } else {
