@@ -1,5 +1,6 @@
 import path from 'path';
 import { updateActors } from './updateActors.mjs';
+import { updateClasses } from './updateClasses.mjs';
 import { updateSkills } from './updateSkills.mjs';
 import fs from 'fs/promises';
 import { Command } from 'commander';
@@ -28,6 +29,7 @@ const newPath = options.newPath ? path.resolve(options.newPath) : 'output';
 const oldDatabasePath = path.join(oldPath, 'RPG_RT.edb');
 const oldMapTreePath = path.join(oldPath, 'RPG_RT.emt');
 const actorsPath = path.join(newPath, 'Actors.json');
+const classesPath = path.join(newPath, 'Classes.json');
 const skillsPath = path.join(newPath, 'Skills.json');
 const enemiesPath = path.join(newPath, 'Enemies.json');
 const troopsPath = path.join(newPath, 'Troops.json');
@@ -68,6 +70,15 @@ async function main() {
       const updatedActorsJson = await updateActors(oldDatabaseXml);
       await fs.writeFile(actorsPath, updatedActorsJson, { encoding: 'utf-8' });
       console.log('Wrote: ' + actorsPath);
+
+      console.log('Updating classes');
+      const updatedClassesJson = await updateClasses(oldDatabaseXml);
+      await fs.writeFile(classesPath, updatedClassesJson, {
+        encoding: 'utf-8'
+      });
+      console.log('Wrote: ' + classesPath);
+      
+
       console.log('Updating skills');
       const updatedSkillsJson = await updateSkills(oldDatabaseXml);
       await fs.writeFile(skillsPath, updatedSkillsJson, { encoding: 'utf-8' });
