@@ -11,6 +11,7 @@ import { updateStates } from './updateStates.mjs';
 import { updateMapInfos } from './updateMapInfos.mjs';
 import { updateMap } from './updateMaps.mjs';
 import { updateTilesets} from './updateTilesets.mjs';
+import { updateSystem } from './updateSystem.mjs';
 
 const program = new Command();
 
@@ -36,7 +37,7 @@ const troopsPath = path.join(newPath, 'Troops.json');
 const statesPath = path.join(newPath, 'States.json');
 const mapInfosPath = path.join(newPath, 'MapInfos.json');
 const tilesetsPath = path.join(newPath, 'Tilesets.json');
-
+const systemPath = path.join(newPath, 'System.json');
 
 const mapPattern = /^Map(\d{4})\.emu$/;
 
@@ -131,6 +132,13 @@ async function main() {
           console.log('Wrote: ' + newMapPath);
         }
       });
+
+      console.log('Updating system');
+      const updatedSystemJson = await updateSystem(oldDatabaseXml, oldMapTreeXML);
+      await fs.writeFile(systemPath, updatedSystemJson, {
+        encoding: 'utf-8'
+      });
+      console.log('Wrote: ' + systemPath);
     } else {
       console.error(
         'Error: RPG_RT.edb or RPG_RT.emt not found. Please check the provided file path and spelling.'
