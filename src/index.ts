@@ -1,6 +1,7 @@
 import path from 'path';
 import { updateActors } from './updateActors.mjs';
 import { updateClasses } from './updateClasses.mjs';
+import { updateCommonEvents } from './updateCommonEvents.mjs';
 import { updateSkills } from './updateSkills.mjs';
 import fs from 'fs/promises';
 import { Command } from 'commander';
@@ -31,6 +32,7 @@ const oldDatabasePath = path.join(oldPath, 'RPG_RT.edb');
 const oldMapTreePath = path.join(oldPath, 'RPG_RT.emt');
 const actorsPath = path.join(newPath, 'Actors.json');
 const classesPath = path.join(newPath, 'Classes.json');
+const commonEventsPath = path.join(newPath, 'CommonEvents.json');
 const skillsPath = path.join(newPath, 'Skills.json');
 const enemiesPath = path.join(newPath, 'Enemies.json');
 const troopsPath = path.join(newPath, 'Troops.json');
@@ -132,6 +134,13 @@ async function main() {
           console.log('Wrote: ' + newMapPath);
         }
       });
+
+    console.log('Updating common events');
+    const updatedCommonEventJson = await updateCommonEvents(oldDatabaseXml);
+    await fs.writeFile(commonEventsPath, updatedCommonEventJson, {
+      encoding: 'utf-8'
+    });
+    console.log('Wrote: ' + commonEventsPath);
 
       console.log('Updating system');
       const updatedSystemJson = await updateSystem(oldDatabaseXml, oldMapTreeXML);
