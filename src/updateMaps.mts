@@ -1,149 +1,10 @@
 import { convertableToString, parseStringPromise } from 'xml2js';
-import { Event, Image, Map, Page, Conditions, Bgm, Bgs, EventCommand } from '../types/map.js';
-import { DBMap, DBEvent,DBPage, DBEventCommand} from '../types/dbMap.js';
+import { Event, Image, Map, Page, Conditions, Bgm, Bgs } from '../types/map.js';
+import { DBMap, DBEvent,DBPage} from '../types/dbMap.js';
 import { DBMapInfo } from '../types/dbMapInfos.js';
+import { remapMapEventCode } from './utilities/updateEventCodes.mjs';
 
 
-
-
-/**
- * 
-ForceFlee (1006)
-EnableCombo (1007)
-ChangeClass (1008)
-ChangeBattleCommands (1009)
-MessageOptions (10120)
-ChangeFaceGraphic (10130)
-ChangePartyMembers (10330)
-ChangeExp (10410)
-ChangeLevel (10420)
-ChangeParameters (10430)
-ChangeSkills (10440)
-ChangeEquipment (10450)
-ChangeSP (10470)
-ChangeCondition (10480)
-FullHeal (10490)
-SimulatedAttack (10500)
-ChangeHeroTitle (10620)
-ChangeSpriteAssociation (10630)
-ChangeActorFace (10640)
-ChangeVehicleGraphic (10650)
-ChangeSystemBGM (10660)
-ChangeSystemSFX (10670)
-ChangeSystemGraphics (10680)
-ChangeScreenTransitions (10690)
-EnemyEncounter (10710)
-ShowInn (10730)
-Teleport (10810)
-MemorizeLocation (10820)
-RecallToLocation (10830)
-SetVehicleLocation (10850)
-ChangeEventLocation (10860)
-TradeEventLocations (10870)
-StoreTerrainID (10910)
-StoreEventID (10920)
-PanScreen (11060)
-WeatherEffects (11070)
-ShowBattleAnimation (11210)
-SpriteTransparency (11310)
-FlashSprite (11320)
-MoveEvent (11330)
-KeyInputProc (11610)
-ChangePBG (11720)
-ChangeEncounterRate (11740)
-TileSubstitution (11750)
-TeleportTargets (11810)
-ChangeTeleportAccess (11820)
-EscapeTarget (11830)
-ChangeEscapeAccess (11840)
-ChangeSaveAccess (11930)
-ChangeMainMenuAccess (11960)
-CallEvent (12330)
-ChangeMonsterHP (13110)
-ChangeMonsterMP (13120)
-ChangeMonsterCondition (13130)
-ShowHiddenMonster (13150)
-
-    ChangeBattleBG (13210)
-
-The following take no arguments:
-
-OpenLoadMenu (5001)
-ExitGame (5002)
-ToggleAtbMode (5003)
-ToggleFullscreen (5004)
-OpenVideoOptions (5005)
-ProceedWithMovement (11340)
-HaltAllMovement (11350)
-EnterExitVehicle (10840)
-TerminateBattle (13410)
- */
-
-const eventCodeTranslator: { [key: number]: number } = {
-  10110: -1, // In 2000/2003 this is the heading to show messages 
-  10130: 101, // Set speaker
-  11030: 223, // Tint screen
-  10810: 201, // Transfer player
-  22410: 108, // Comment code
-  20110: 401, // Continue talk
-  12510: 354, // Return to Title Screen
-  12420: 353, // Game Over
-  12320: 214, // Erase Event
-  12210: 112, // Loop
-  12220: 113, // Break Loop
-  11910: 352, // Open Save Menu
-  11950: 351, // Open Menu
-  11530: 243, // Save BGM
-  11540: 244, // Resume BGM
-  12310: 115, // End event processing 
-  1005: 117, // Common event 
-  12110: 118, // Label 
-  12120: 119, // Jump to label 
-  11110: 231, // Show picture
-  11120: 232, // Move picture
-  11130: 235, // Erase picture
-  11510: 241, // Play BGM
-  11520: 242, // Fadeout BGM 
-  10140: 102, // Show choices
-  10150: 103, // Input number
-  10210: 121, // Control Switches 
-  10220: 122, // Control Variables 
-  10230: 124, // Control Timer 
-  10310: 125, // Change Gold
-  10320: 126, // Change Items
-  11410 : 230, // Wait 
-  11560: 261, // Play movie
-  11550: 250, // Play sound
-  10740: 303, // In 2003 this is enter name , in MV it's in all in one
-  10610: 303, // In 2003, this is change name, in MV it's in all in one
-  11710: 283, // Change tileset 
-  12010: 111, // Conditional Branch  
-  11040: 224, // Flash screen  
-  11010: 221, // Fadeout screen
-  11020: 222, // Fadein screen
-  11050: 225, // Shake screen
-  10460: 311, // Change HP 
-  10720 : 302, // Shop Processing 
-};
-
-
-const mvSetSpeakerCode = 101; 
-
-/**
- * 
- * @param {string} input 
- */
-function convertToNum(input : string)
-{
-  if (!Number.isNaN(input))
-  {
-    return Number.parseInt(input);
-  }
-  else 
-  {
-    return input; 
-  }
-}
 
 
 function readMapData(map: Map, oldMap: DBMap, oldMapInfo : DBMapInfo) {
@@ -252,57 +113,14 @@ function readMapData(map: Map, oldMap: DBMap, oldMapInfo : DBMapInfo) {
 
       map.events[eventIndex + 1].pages[pageIndex].list = [];
       
+
+
       if (oldCommands.EventCommand != null)
       {
-        const properCommands = oldCommands.EventCommand as DBEventCommand[];
-        let lastSpeechBubble: EventCommand = {} as EventCommand; 
-        properCommands.forEach((command) => {
-          // TODO: Check for the rest of the commands
-          
-          const newCode = eventCodeTranslator[parseInt(command.code)] as number;
-
-          if (newCode == -1 && lastSpeechBubble.code != null)
-          {
-             map.events[eventIndex + 1].pages[pageIndex].list.push(
-              lastSpeechBubble
-             );
-            // Begin New dialog 
-          }
-          else 
-          {
-              const newIndent = parseInt(command.indent);
-              const parameters: unknown[] = [];
-              
-              const commandString =
-                command.string == null ? '' : command.string + ' ';
-              parameters.push(commandString); 
-              if (command.parameters[0] != null)
-              {
-
-                parameters.push(
-                  ...command.parameters[0].split(' ').map(convertToNum)
-                ); 
-              }
-              const eventCommand = {
-                code: newCode,
-                indent: newIndent,
-                parameters: parameters
-            }
-            if (eventCommand.code == mvSetSpeakerCode) {
-              // Set speaker
-              lastSpeechBubble = eventCommand;
-              // Storing for later
-            } else {
-              // Adding to list
-              map.events[eventIndex + 1].pages[pageIndex].list.push(
-                eventCommand
-              );
-            }
-          }
-
-        });
-        const emptyCommand = { code: 0, indent: 0, parameters:[]}; 
-        map.events[eventIndex + 1].pages[pageIndex].list.push(emptyCommand);
+        remapMapEventCode(
+          map.events[eventIndex + 1].pages[pageIndex].list,
+          oldCommands.EventCommand
+        );
       }
     });
 
@@ -321,6 +139,8 @@ function readMapData(map: Map, oldMap: DBMap, oldMapInfo : DBMapInfo) {
   map.note = ""; 
   map.specifyBattleback = false; 
 }
+
+
 
 /**
  * @param {String} oldMapXml
