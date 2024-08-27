@@ -7,191 +7,143 @@ import { EventCodeTranslator } from '../../types/eventCodeTranslator.js';
  * 
 RPG Maker 2003 to RPG Maker MV Event Code Remap:
 
-    ForceFlee (1006)
+    ForceFlee : {code: 1006
         MV Equivalent: "Escape" (using event commands) — Trigger an escape attempt using a script call, as there's no direct command.
 
-    EnableCombo (1007)
+    EnableCombo : {code: 1007
         MV Equivalent: No direct equivalent — This feature would need to be implemented through plugins or battle system customization.
 
-    ChangeBattleCommands (1009)
+    ChangeBattleCommands : {code: 1009
         MV Equivalent: Change Actor Command — Customizable via plugins or directly through database setup.
 
-    MessageOptions (10120)
+    MessageOptions : {code: 10120
         MV Equivalent: "Message Settings" (in the event commands section) — Set options like window type, position, and more.
 
-    ChangePartyMembers (10330)
-        MV Equivalent: "Change Party Member" (Event Command > Actor > Change Party Member).
-
-    ChangeParameters (10430)
+    ChangeParameters : {code: 10430
         MV Equivalent: "Change Parameters" (via script calls or plugins) — Use script calls to change parameters of actors.
 
-    ChangeSP (10470)
+    ChangeSP : {code: 10470
         MV Equivalent: "Change MP" (Event Command > Actor > Change MP).
 
-    ChangeCondition (10480)
-        MV Equivalent: "Change State" (Event Command > Actor > Change State).
-
-    FullHeal (10490)
-        MV Equivalent: "Recover All" (Event Command > Actor > Recover All).
-
-    SimulatedAttack (10500)
+    SimulatedAttack : {code: 10500
         MV Equivalent: No direct equivalent — Simulate attacks through scripted events or battle processing.
 
-    ChangeHeroTitle (10620)
+    ChangeHeroTitle : {code: 10620
         MV Equivalent: No direct equivalent — Change titles or similar effects using variables, custom scripts, or plugins.
 
-    ChangeSpriteAssociation (10630)
+    ChangeSpriteAssociation : {code: 10630
         MV Equivalent: "Change Actor Images" (Event Command > Actor > Change Actor Images).
 
-    ChangeActorFace (10640)
+    ChangeActorFace : {code: 10640
         MV Equivalent: "Change Actor Images" (Event Command > Actor > Change Actor Images).
 
-    ChangeVehicleGraphic (10650)
+    ChangeVehicleGraphic : {code: 10650
         MV Equivalent: "Change Vehicle Image" (Event Command > System Settings > Change Vehicle Image).
 
-    ChangeSystemBGM (10660)
+    ChangeSystemBGM : {code: 10660
         MV Equivalent: "Change BGM" (Event Command > System Settings > Change BGM).
 
-    ChangeSystemSFX (10670)
+    ChangeSystemSFX : {code: 10670
         MV Equivalent: "Change SE" (Event Command > System Settings > Change SE).
 
-    ChangeSystemGraphics (10680)
+    ChangeSystemGraphics : {code: 10680
         MV Equivalent: "Change Window Color" or "Change Screen Tone" (Event Command > System Settings).
 
-    ChangeScreenTransitions (10690)
+    ChangeScreenTransitions : {code: 10690
         MV Equivalent: "Fadeout/Fadein Screen" or "Scroll Map" (Event Command > Screen).
 
-    EnemyEncounter (10710)
-        MV Equivalent: "Battle Processing" (Event Command > Battle > Battle Processing).
-
-    ShowInn (10730)
+    ShowInn : {code: 10730
         MV Equivalent: No direct equivalent — Create an inn event with recovery options through custom eventing.
 
-    Teleport (10810)
-        MV Equivalent: "Transfer Player" (Event Command > Map > Transfer Player).
-
-    MemorizeLocation (10820)
+    MemorizeLocation : {code: 10820
         MV Equivalent: "Set Movement Route" (via script call/variable) — Store current position using variables.
 
-    RecallToLocation (10830)
+    RecallToLocation : {code: 10830
         MV Equivalent: "Transfer Player" using memorized variables — Use variables to recall position and transfer player.
 
-    SetVehicleLocation (10850)
+    SetVehicleLocation : {code: 10850
         MV Equivalent: "Set Vehicle Location" (Event Command > System Settings > Set Vehicle Location).
 
-    ChangeEventLocation (10860)
+    ChangeEventLocation : {code: 10860
         MV Equivalent: "Set Event Location" (Event Command > Map > Set Event Location).
 
-    TradeEventLocations (10870)
+    TradeEventLocations : {code: 10870
         MV Equivalent: No direct equivalent — Manually swap event locations through eventing.
 
-    StoreTerrainID (10910)
+    StoreTerrainID : {code: 10910
         MV Equivalent: No direct equivalent — This would require a script call to get terrain tags.
 
-    StoreEventID (10920)
+    StoreEventID : {code: 10920
         MV Equivalent: No direct equivalent — This would require a script or plugin to fetch event IDs.
 
-    PanScreen (11060)
-        MV Equivalent: "Scroll Map" (Event Command > Screen > Scroll Map).
-
-    WeatherEffects (11070)
-        MV Equivalent: "Change Weather" (Event Command > Screen > Change Weather).
-
-    ShowBattleAnimation (11210)
-        MV Equivalent: "Show Animation" (Event Command > Battle > Show Animation).
-
-    SpriteTransparency (11310)
+    SpriteTransparency : {code: 11310
         MV Equivalent: "Change Opacity" (Event Command > Movement > Set Move Route > Change Opacity).
 
-    FlashSprite (11320)
+    FlashSprite : {code: 11320
         MV Equivalent: "Flash Screen/Character" (Event Command > Screen).
 
-    MoveEvent (11330)
+    MoveEvent : {code: 11330
         MV Equivalent: "Set Move Route" (Event Command > Movement > Set Move Route).
 
-    KeyInputProc (11610)
+    KeyInputProc : {code: 11610
         MV Equivalent: No direct equivalent — Custom input can be handled through scripts or plugins.
 
-    ChangePBG (11720)
+    ChangePBG : {code: 11720
         MV Equivalent: No direct equivalent — Could be handled with scripts or plugin for battle graphics.
 
-    ChangeEncounterRate (11740)
+    ChangeEncounterRate : {code: 11740
         MV Equivalent: "Change Encounter Rate" (Event Command > System Settings > Change Encounter Rate).
 
-    TileSubstitution (11750)
+    TileSubstitution : {code: 11750
         MV Equivalent: No direct equivalent — Tile substitution would need to be handled via a plugin.
 
-    TeleportTargets (11810)
+    TeleportTargets : {code: 11810
         MV Equivalent: "Transfer Player" — Define custom targets through variables.
 
-    ChangeTeleportAccess (11820)
+    ChangeTeleportAccess : {code: 11820
         MV Equivalent: "Enable/Disable Transfer" — Control access using switches and conditions.
 
-    EscapeTarget (11830)
+    EscapeTarget : {code: 11830
         MV Equivalent: "Escape Processing" — Control access to escape using variables or plugins.
 
-    ChangeEscapeAccess (11840)
+    ChangeEscapeAccess : {code: 11840
         MV Equivalent: "Enable/Disable Escape" — Control escape functionality using switches or scripts.
 
-    ChangeSaveAccess (11930)
-        MV Equivalent: "Enable/Disable Save" (Event Command > System Settings > Change Save Access).
-
-    ChangeMainMenuAccess (11960)
-        MV Equivalent: "Enable/Disable Menu" (Event Command > System Settings > Change Menu Access).
-
-    CallEvent (12330)
-        MV Equivalent: "Call Common Event" (Event Command > Event > Call Common Event).
-
-    ChangeMonsterHP (13110)
-        MV Equivalent: "Change Enemy HP" (Event Command > Battle > Change Enemy HP).
-
-    ChangeMonsterMP (13120)
-        MV Equivalent: "Change Enemy MP" (Event Command > Battle > Change Enemy MP).
-
-    ChangeMonsterCondition (13130)
-        MV Equivalent: "Change Enemy State" (Event Command > Battle > Change Enemy State).
-
-    ShowHiddenMonster (13150)
+    ShowHiddenMonster : {code: 13150
         MV Equivalent: "Reveal/Conceal Enemy" — Custom eventing using conditions and battle events.
-
-    ChangeBattleBG (13210)
-        MV Equivalent: "Change Battle Background" (Event Command > Battle > Change Battle Background).
 
 No Argument Commands:
 
-    OpenLoadMenu (5001)
+    OpenLoadMenu : {code: 5001
         MV Equivalent: "Open Save/Load Menu" (Event Command > Scene Control).
 
-    ExitGame (5002)
+    ExitGame : {code: 5002
         MV Equivalent: "Exit Game" (Event Command > Scene Control > Game Over or script).
 
-    ToggleAtbMode (5003)
+    ToggleAtbMode : {code: 5003
         MV Equivalent: No direct equivalent — Customize battle mode via plugins.
 
-    ToggleFullscreen (5004)
+    ToggleFullscreen : {code: 5004
         MV Equivalent: "Toggle Fullscreen" — Custom script call required.
 
-    OpenVideoOptions (5005)
+    OpenVideoOptions : {code: 5005
         MV Equivalent: No direct equivalent — This would require a plugin for video options.
 
-    ProceedWithMovement (11340)
+    ProceedWithMovement : {code: 11340
         MV Equivalent: "Proceed with Move Route" — Customize via event commands.
 
-    HaltAllMovement (11350)
+    HaltAllMovement : {code: 11350
         MV Equivalent: "Halt Movement" — Manage movement with switches or eventing.
 
-    EnterExitVehicle (10840)
+    EnterExitVehicle : {code: 10840
         MV Equivalent: "Enter/Exit Vehicle" — Use event command or custom scripts.
-
-    TerminateBattle (13410)
-        MV Equivalent: "Abort Battle" (Event Command > Battle > Abort Battle).
 
 Note:
 
 Some of the commands from RPG Maker 2003 may require scripting or plugin solutions to achieve in RPG Maker MV, as MV has a different event system and lacks some of the old hard-coded event commands. You'll need to utilize JavaScript and plugins for more complex commands that don't have direct event command equivalents.
  */
 
-const eventCodeTranslator : EventCodeTranslator = {
+const eventCodeTranslator: EventCodeTranslator = {
   ChangeClass: { code: 1008, remap: 321 },
   ShowMessage: { code: 10110, remap: -1 },
   SetSpeaker: { code: 10130, remap: 101 },
@@ -229,8 +181,8 @@ const eventCodeTranslator : EventCodeTranslator = {
   Wait: { code: 11410, remap: 230 },
   PlayMovie: { code: 11560, remap: 261 },
   PlaySound: { code: 11550, remap: 250 },
-  EnterName: { code: 10740, remap: 303 }, // 2003
-  ChangeName: { code: 10610, remap: 303 }, // 2003
+  EnterName: { code: 10740, remap: 303 }, 
+  ChangeName: { code: 10610, remap: 303 }, 
   ChangeTileset: { code: 11710, remap: 283 },
   ConditionalBranch: { code: 12010, remap: 111 },
   FlashScreen: { code: 11040, remap: 224 },
@@ -240,7 +192,22 @@ const eventCodeTranslator : EventCodeTranslator = {
   ChangeHP: { code: 10460, remap: 311 },
   ShopProcessing: { code: 10720, remap: 302 },
   ChangeSkill: { code: 10440, remap: 318 },
-  ChangeEquipment: { code: 10450, remap: 319 }
+  ChangeEquipment: { code: 10450, remap: 319 },
+  CallEvent: { code: 12330, remap: 117 },
+  ChangeMonsterHP: { code: 13120, remap: 13110 },
+  ChangeMainMenuAccess: { code: 11960, remap: 135 },
+  ChangeSaveAccess: { code: 11930, remap: 134 },
+  ChangeMonsterMP: { code: 13120, remap: 332 },
+  TerminateBattle: { code: 13410, remap: 340 },
+  ChangeMonsterCondition: { code: 13130, remap: 333 },
+  ChangeBattleBG: { code: 13210, remap: 283 },
+  PanScreen: { code: 11060, remap: 204 },
+  WeatherEffects: { code: 11070, remap: 236 },
+  ShowBattleAnimation: { code: 11210, remap: 337 },
+  ChangeCondition: { code: 10480, remap: 313 },
+  ChangePartyMembers: { code: 10330, remap: 129 },
+  FullHeal: { code: 10490, remap: 314 },
+  EnemyEncounter: { code: 10710, remap: 301}
 };
 
 /*
