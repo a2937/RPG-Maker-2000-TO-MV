@@ -22,34 +22,16 @@ RPG Maker 2003 to RPG Maker MV Event Code Remap:
     ChangeParameters : {code: 10430
         MV Equivalent: "Change Parameters" (via script calls or plugins) — Use script calls to change parameters of actors.
 
-    ChangeSP : {code: 10470
-        MV Equivalent: "Change MP" (Event Command > Actor > Change MP).
-
     SimulatedAttack : {code: 10500
         MV Equivalent: No direct equivalent — Simulate attacks through scripted events or battle processing.
 
     ChangeHeroTitle : {code: 10620
         MV Equivalent: No direct equivalent — Change titles or similar effects using variables, custom scripts, or plugins.
 
-    ChangeSpriteAssociation : {code: 10630
-        MV Equivalent: "Change Actor Images" (Event Command > Actor > Change Actor Images).
-
-    ChangeActorFace : {code: 10640
-        MV Equivalent: "Change Actor Images" (Event Command > Actor > Change Actor Images).
-
-    ChangeVehicleGraphic : {code: 10650
-        MV Equivalent: "Change Vehicle Image" (Event Command > System Settings > Change Vehicle Image).
-
-    ChangeSystemBGM : {code: 10660
-        MV Equivalent: "Change BGM" (Event Command > System Settings > Change BGM).
-
-    ChangeSystemSFX : {code: 10670
-        MV Equivalent: "Change SE" (Event Command > System Settings > Change SE).
-
     ChangeSystemGraphics : {code: 10680
         MV Equivalent: "Change Window Color" or "Change Screen Tone" (Event Command > System Settings).
 
-    ChangeScreenTransitions : {code: 10690
+    ChangeScreenTransitions : {code: 10690,
         MV Equivalent: "Fadeout/Fadein Screen" or "Scroll Map" (Event Command > Screen).
 
     ShowInn : {code: 10730
@@ -61,12 +43,6 @@ RPG Maker 2003 to RPG Maker MV Event Code Remap:
     RecallToLocation : {code: 10830
         MV Equivalent: "Transfer Player" using memorized variables — Use variables to recall position and transfer player.
 
-    SetVehicleLocation : {code: 10850
-        MV Equivalent: "Set Vehicle Location" (Event Command > System Settings > Set Vehicle Location).
-
-    ChangeEventLocation : {code: 10860
-        MV Equivalent: "Set Event Location" (Event Command > Map > Set Event Location).
-
     TradeEventLocations : {code: 10870
         MV Equivalent: No direct equivalent — Manually swap event locations through eventing.
 
@@ -77,7 +53,7 @@ RPG Maker 2003 to RPG Maker MV Event Code Remap:
         MV Equivalent: No direct equivalent — This would require a script or plugin to fetch event IDs.
 
     SpriteTransparency : {code: 11310
-        MV Equivalent: "Change Opacity" (Event Command > Movement > Set Move Route > Change Opacity).
+        MV Equivalent: No direct equivalent
 
     FlashSprite : {code: 11320
         MV Equivalent: "Flash Screen/Character" (Event Command > Screen).
@@ -92,7 +68,7 @@ RPG Maker 2003 to RPG Maker MV Event Code Remap:
         MV Equivalent: No direct equivalent — Could be handled with scripts or plugin for battle graphics.
 
     ChangeEncounterRate : {code: 11740
-        MV Equivalent: "Change Encounter Rate" (Event Command > System Settings > Change Encounter Rate).
+        MV Equivalent: No direct equivalent
 
     TileSubstitution : {code: 11750
         MV Equivalent: No direct equivalent — Tile substitution would need to be handled via a plugin.
@@ -151,7 +127,7 @@ const eventCodeTranslator: EventCodeTranslator = {
   TransferPlayer: { code: 10810, remap: 201 },
   ChangeExp: { code: 10410, remap: 315 },
   ChangeLevel: { code: 10420, remap: 316 },
-  CommentCode: { code: 22410, remap: 108 },
+  CommentCode: { code: 12410, remap: 108 },
   ContinueTalk: { code: 20110, remap: 401 },
   ReturnToTitleScreen: { code: 12510, remap: 354 },
   GameOver: { code: 12420, remap: 353 },
@@ -181,8 +157,8 @@ const eventCodeTranslator: EventCodeTranslator = {
   Wait: { code: 11410, remap: 230 },
   PlayMovie: { code: 11560, remap: 261 },
   PlaySound: { code: 11550, remap: 250 },
-  EnterName: { code: 10740, remap: 303 }, 
-  ChangeName: { code: 10610, remap: 303 }, 
+  EnterName: { code: 10740, remap: 303 },
+  ChangeName: { code: 10610, remap: 303 },
   ChangeTileset: { code: 11710, remap: 283 },
   ConditionalBranch: { code: 12010, remap: 111 },
   FlashScreen: { code: 11040, remap: 224 },
@@ -207,7 +183,15 @@ const eventCodeTranslator: EventCodeTranslator = {
   ChangeCondition: { code: 10480, remap: 313 },
   ChangePartyMembers: { code: 10330, remap: 129 },
   FullHeal: { code: 10490, remap: 314 },
-  EnemyEncounter: { code: 10710, remap: 301}
+  EnemyEncounter: { code: 10710, remap: 301 },
+  ChangeEventLocation: { code: 10860, remap: 203 },
+  SetVehicleLocation: { code: 10850, remap: 202 },
+  ChangeSP: { code: 10470, remap: 312 },
+  ChangeSpriteAssociation: { code: 10630, remap: 322 }, // TODO: specify sprite  in loop
+  ChangeActorFace: { code: 10640, remap: 322 }, // TODO: specify face in loop,
+  ChangeVehicleGraphic: { code: 10650, remap: 323 },
+  ChangeSystemBGM: { code: 10660, remap: 241 },
+  ChangeSystemSFX: { code: 10670, remap: 250 }
 };
 
 /*
