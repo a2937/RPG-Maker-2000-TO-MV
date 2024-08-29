@@ -9,5 +9,5 @@ export interface CommonEvent {
 export interface EventList {
   code: number;
   indent: number;
-  parameters: string|number[];
+  parameters: unknown[];
 }

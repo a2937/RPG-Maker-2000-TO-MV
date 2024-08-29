@@ -1,6 +1,7 @@
 import { convertableToString, parseStringPromise } from 'xml2js';
 import { DBCommonEvent } from '../types/dbCommonEvent.js';
 import { CommonEvent } from '../types/commonEvent.js';
+import { remapMapEventCode } from './utilities/updateEventCodes.mjs';
 
 
 /**
@@ -21,7 +22,12 @@ function readCommonEventData(common_events: CommonEvent[], i: number, dbCommonEv
   }
   common_events[i + 1].switchId = parseInt(dbCommonEvent.switch_id);
   common_events[i + 1].trigger = parseInt(dbCommonEvent.trigger);
-  // TODO: Add common event commands once map events are done
+ 
+    const oldCommands = dbCommonEvent.event_commands[0];
+    if (oldCommands.EventCommand != null) {
+      common_events[i + 1].list = remapMapEventCode(oldCommands.EventCommand);
+    }
+
 }
 
 /**

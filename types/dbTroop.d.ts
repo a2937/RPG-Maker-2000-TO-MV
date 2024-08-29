@@ -25,8 +25,22 @@ export interface DBPage {
 
 export interface DBTroopPage {
   condition: Condition[];
-  event_commands: string;
+  event_commands: EventCommandsClass[];
 }
+
+
+export interface EventCommandsClass {
+  EventCommand: DBEventCommand[];
+}
+
+
+export interface DBEventCommand {
+  code: string;
+  indent: string;
+  string: string;
+  parameters: string;
+}
+
 
 export interface Condition {
   TroopPageCondition: TroopPageCondition[];

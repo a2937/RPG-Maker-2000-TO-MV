@@ -12,6 +12,7 @@ import {
   DBTroop,
   TroopMemberElement as DBMember
 } from '../types/dbTroop.js';
+import { remapMapEventCode } from './utilities/updateEventCodes.mjs';
 
 
 /**
@@ -48,7 +49,7 @@ function readTroopData(troops: Troop[], i: number, dbTroop: DBTroop) {
     const conditions =
       oldPage.TroopPage[0].condition[0].TroopPageCondition[0];
     
-    
+
     troops[i + 1].pages[pageIndex].conditions.actorHp = parseInt(
       conditions.actor_hp_max 
     );
@@ -69,8 +70,13 @@ function readTroopData(troops: Troop[], i: number, dbTroop: DBTroop) {
     
    troops[i + 1].pages[pageIndex].conditions.turnB = parseInt(
      conditions.turn_b
-   ); 
-    // TODO: Add event commands
+    ); 
+    
+    const oldCommands = oldPage.TroopPage[0].event_commands[0]; 
+    if (oldCommands.EventCommand != null)
+    {
+      troops[i + 1].pages[pageIndex].list = remapMapEventCode(oldCommands.EventCommand);
+    }
   });
 
  

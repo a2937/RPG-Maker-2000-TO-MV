@@ -3,7 +3,7 @@ export interface DBCommonEvent {
   trigger: string;
   switch_flag: string[];
   switch_id: string;
-  event_commands: DBEventCommands;
+  event_commands: DBEventCommands[];
 }
 
 export interface DBEventCommands {
@@ -13,6 +13,6 @@ export interface DBEventCommands {
 export interface DBEventCommand {
   code: string;
   indent: string;
-  string: string[];
-  parameters: string[];
+  string: string;
+  parameters: string;
 }
