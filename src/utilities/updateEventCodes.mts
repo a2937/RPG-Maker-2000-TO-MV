@@ -213,9 +213,9 @@ function convertToNum(input : string)
 
 
 export function remapMapEventCode(
-  newCommands: EventCommand[],
   oldCommands: DBEventCommand[]
-) {
+) : EventCommand[]{
+  const newCommands = []; 
   const properCommands = oldCommands as DBEventCommand[];
   let lastSpeechBubble: EventCommand = {} as EventCommand;
   properCommands.forEach((command) => {
@@ -255,4 +255,5 @@ export function remapMapEventCode(
   });
   const emptyCommand = { code: 0, indent: 0, parameters: [] };
   newCommands.push(emptyCommand);
+  return newCommands; 
 }

@@ -117,10 +117,7 @@ function readMapData(map: Map, oldMap: DBMap, oldMapInfo : DBMapInfo) {
 
       if (oldCommands.EventCommand != null)
       {
-        remapMapEventCode(
-          map.events[eventIndex + 1].pages[pageIndex].list,
-          oldCommands.EventCommand
-        );
+        map.events[eventIndex + 1].pages[pageIndex].list =  remapMapEventCode( oldCommands.EventCommand);
       }
     });
 
