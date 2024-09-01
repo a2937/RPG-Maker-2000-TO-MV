@@ -1,6 +1,6 @@
 import fs from 'fs';
 import { assert } from 'chai';
-import { updateSystem } from '../src/updateSystem.mjs';
+import { updateSystem } from '../src/2003-to-mv/updateSystem.mjs';
 import { System } from '../types/system.js';
 
 const fixtureDatabase = fs.readFileSync('./fixtures/RPG_RT.edb', 'utf-8');

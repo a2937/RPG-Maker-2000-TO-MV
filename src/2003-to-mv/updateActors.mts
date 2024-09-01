@@ -1,6 +1,6 @@
 import { convertableToString, parseStringPromise } from 'xml2js';
-import { DBActor } from '../types/dbActor.js';
-import { Actor } from '../types/actor.js';
+import { DBActor } from '../../types/dbActor.js';
+import { Actor } from '../../types/actor.js';
 
 /**
  * @param {Actor[]} actors

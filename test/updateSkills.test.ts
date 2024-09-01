@@ -1,6 +1,6 @@
 import fs from 'fs';
 import { assert } from 'chai';
-import { updateSkills } from '../src/updateSkills.mjs';
+import { updateSkills } from '../src/2003-to-mv/updateSkills.mjs';
 import { Skill } from '../types/skill.js';
 
 const fixtureData = fs.readFileSync('./fixtures/RPG_RT.edb', 'utf-8');

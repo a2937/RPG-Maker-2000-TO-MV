@@ -1,6 +1,6 @@
 import fs from 'fs';
 import { assert } from 'chai';
-import { updateMap } from '../src/updateMaps.mjs';
+import { updateMap } from '../src/2003-to-mv/updateMaps.mjs';
 import { Map } from '../types/map.js';
 
 const fixtureMapInfoData = fs.readFileSync('./fixtures/RPG_RT.emt', 'utf-8');

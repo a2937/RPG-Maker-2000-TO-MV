@@ -1,7 +1,7 @@
 import fs from 'fs';
 import { assert } from 'chai';
 import { Enemy } from '../types/enemy.js';
-import { updateEnemies } from '../src/updateEnemies.mjs';
+import { updateEnemies } from '../src/2003-to-mv/updateEnemies.mjs';
 
 const fixtureData = fs.readFileSync('./fixtures/RPG_RT.edb', 'utf-8');
 const fixtureEnemies = JSON.parse(await updateEnemies(fixtureData));

@@ -1,6 +1,6 @@
 import { convertableToString, parseStringPromise } from 'xml2js';
-import { MapInfo } from '../types/mapInfo.js';
-import { DBMapInfo } from '../types/dbMapInfos.js';
+import { MapInfo } from '../../types/mapInfo.js';
+import { DBMapInfo } from '../../types/dbMapInfos.js';
 
 function readMapInfoData(mapInfos: MapInfo[], i: number, dbMapInfo: DBMapInfo,mapOrder : string[]) {
   if (mapInfos[i + 1] == null) {

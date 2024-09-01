@@ -1,6 +1,6 @@
 import { convertableToString, parseStringPromise } from 'xml2js';
-import { Damage, Skill } from '../types/skill.js';
-import { DBSkill } from '../types/dbSkill.js';
+import { Damage, Skill } from '../../types/skill.js';
+import { DBSkill } from '../../types/dbSkill.js';
 
 /**
  * @param {Skill[]} skills

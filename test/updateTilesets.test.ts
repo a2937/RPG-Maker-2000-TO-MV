@@ -1,6 +1,6 @@
 import fs from 'fs';
 import { assert } from 'chai';
-import { updateTilesets } from '../src/updateTilesets.mjs';
+import { updateTilesets } from '../src/2003-to-mv/updateTilesets.mjs';
 import { Tileset} from '../types/tileset.js';
 
 

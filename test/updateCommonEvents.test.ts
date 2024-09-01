@@ -1,6 +1,6 @@
 import fs from 'fs';
 import { assert } from 'chai';
-import { updateCommonEvents } from '../src/updateCommonEvents.mjs';
+import { updateCommonEvents } from '../src/2003-to-mv/updateCommonEvents.mjs';
 import { CommonEvent } from '../types/commonEvent.js';
 
 const fixtureData = fs.readFileSync('./fixtures/RPG_RT.edb', 'utf-8');

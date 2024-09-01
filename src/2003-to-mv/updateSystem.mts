@@ -1,6 +1,6 @@
 import { convertableToString, parseStringPromise } from 'xml2js';
-import { DBStart, DBSystem } from '../types/dbSystem.js';
-import { Airship, Bgm, Bgm2, Boat, Ship, System, Terms } from '../types/system.js';
+import { DBStart, DBSystem } from '../../types/dbSystem.js';
+import { Airship, Bgm, Bgm2, Boat, Ship, System, Terms } from '../../types/system.js';
 
 // TODO: Finish eventually 
 
@@ -100,7 +100,6 @@ function readTreeMap(system: System, dbStart: DBStart)
   system.startMapId = parseInt(dbStart.party_map_id);
   system.startX = parseInt(dbStart.party_x);
   system.startY = parseInt(dbStart.party_y);
-  system.editMapId = system.startMapId;
 }
 
 /**
@@ -119,6 +118,8 @@ export async function updateSystem(
     const treeMap = resultTree.LMT.TreeMap[0];
     const startInfo = treeMap.start[0].Start[0]; 
    
+
+  
 
     const system: System = {} as System ; 
 
@@ -163,8 +164,7 @@ export async function updateSystem(
 
     readTreeMap(system, startInfo); 
 
-
-
+    system.editMapId = treeMap.active_node[0];
     // TODO: add in rest of terms 
     system.currencyUnit = terms.gold; 
 

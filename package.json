@@ -6,8 +6,10 @@
   "type": "module",
   "scripts": {
     "tsc": "tsc",
-    "start:dev": "node --loader ts-node/esm src/index.ts",
-    "start:prod": "node build/index.js",
+    "start:dev:forward": "node --loader ts-node/esm src/index.ts",
+    "start:prod:forward": "node build/index.js",
+    "start:dev:backward": "node --loader ts-node/esm src/index.ts --reverse",
+    "start:prod:backward": "node build/index.js --reverse",
     "compile": "tsc",
     "clean": "rimraf build",
     "prebuild": "pnpm run compile",
@@ -20,6 +22,7 @@
   "license": "ISC",
   "dependencies": {
     "commander": "^12.1.0",
+    "js2xmlparser": "^5.0.0",
     "xml2js": "^0.6.2"
   },
   "devDependencies": {

@@ -1,7 +1,7 @@
 import fs from 'fs';
 import { assert } from 'chai';
 import { Class} from '../types/class.js';
-import { updateClasses } from '../src/updateClasses.mjs';
+import { updateClasses } from '../src/2003-to-mv/updateClasses.mjs';
 
 const fixtureData = fs.readFileSync('./fixtures/RPG_RT.edb', 'utf-8');
 const fixtureClasses = JSON.parse(await updateClasses(fixtureData));
