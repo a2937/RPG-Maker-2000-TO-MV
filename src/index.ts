@@ -198,8 +198,8 @@ async function loadMVData()
     console.log("Rebuilding Map Tree");
     const mapTreeObject = buildMapTree(mapInfos);
     const mapTreeXML = parse('LMT', mapTreeObject); 
-    console.log("Writing map tree to " + oldDatabasePath); 
-     await fs.writeFile(oldDatabasePath, mapTreeXML, {
+    console.log("Writing map tree to " + oldMapTreePath); 
+     await fs.writeFile(oldMapTreePath, mapTreeXML, {
        encoding: 'utf-8'
      });
   } catch (ex) {
