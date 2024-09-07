@@ -17,6 +17,7 @@ import { updateSystem } from './2003-to-mv/updateSystem.mjs';
 import { buildMapTree } from './mv-to-2003/restore_map_tree.mjs';
 
 import { parse } from 'js2xmlparser';
+import { buildMap } from './mv-to-2003/restore_map.mjs';
 
 
 const program = new Command();
@@ -56,8 +57,8 @@ const mapInfosPath = path.join(mvPath, 'MapInfos.json');
 const tilesetsPath = path.join(mvPath, 'Tilesets.json');
 const systemPath = path.join(mvPath, 'System.json');
 
-const mapPattern = /^Map(\d{4})\.emu$/;
-
+const oldMapPattern = /^Map(\d{4})\.emu$/;
+const newMapPattern = /^Map(\d{3})\.json$/;
 
 /**
  * 
@@ -138,13 +139,13 @@ async function load2000Data() {
       console.log('Updating maps');
 
       const files = await fs.readdir(oldPath);
-      const matchedFiles = files.filter((file) => mapPattern.test(file));
+      const matchedFiles = files.filter((file) => oldMapPattern.test(file));
 
       matchedFiles.forEach(async (file) => {
         const filePath = path.join(oldPath, file);
         console.log('Reading file:', filePath);
         const mapData = await fs.readFile(filePath, 'utf-8');
-        const match = file.match(mapPattern);
+        const match = file.match(oldMapPattern);
         if (match) {
           const number = parseInt(match[1]);
           const newMapData = await updateMap(mapData, oldMapTreeXML, number);
@@ -190,6 +191,32 @@ async function loadMVData()
 
 
   try {
+
+    console.log("Reading maps");
+    const files = await fs.readdir(oldPath);
+    const matchedFiles = files.filter((file) => newMapPattern.test(file));
+
+    console.log("Rebuilding maps"); 
+    matchedFiles.forEach(async (file) => {
+      const filePath = path.join(oldPath, file);
+      console.log('Reading file:', filePath);
+      const mapDataString = await fs.readFile(filePath, 'utf-8');
+      const mapData = JSON.parse(mapDataString); 
+      const match = file.match(newMapPattern);
+      if (match) {
+        const number = parseInt(match[1]);
+        const newMapData = buildMap(mapData);
+        const newMapPath = path.join(
+          mvPath,
+          'Map' + number.toString().padStart(4, '0') + '.emu'
+        );
+        const newMapXML = parse('LMU', newMapData); 
+
+        await fs.writeFile(newMapPath, newMapXML);
+        console.log('Wrote: ' + newMapPath);
+      }
+    });
+
     console.log("Reading " + mapInfosPath);
     const mapInfosString = await fs.readFile(mapInfosPath, 'utf-8');
     const mapInfos = JSON.parse(mapInfosString); 
@@ -202,6 +229,7 @@ async function loadMVData()
      await fs.writeFile(oldMapTreePath, mapTreeXML, {
        encoding: 'utf-8'
      });
+    
   } catch (ex) {
      console.error('An unexpected error occurred.');
      console.log(ex);

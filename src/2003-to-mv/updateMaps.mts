@@ -109,6 +109,14 @@ function readMapData(map: Map, oldMap: DBMap, oldMapInfo : DBMapInfo) {
       }
       map.events[eventIndex + 1].pages[pageIndex].moveFrequency = parseInt(oldPage.move_frequency);
       
+      map.events[eventIndex + 1].pages[pageIndex].moveSpeed = parseInt(
+          oldPage.move_speed
+      );
+
+      map.events[eventIndex + 1].pages[pageIndex].moveType = parseInt(
+        oldPage.move_type
+      );
+
       const oldCommands = oldPage.event_commands[0]; 
 
       map.events[eventIndex + 1].pages[pageIndex].list = [];

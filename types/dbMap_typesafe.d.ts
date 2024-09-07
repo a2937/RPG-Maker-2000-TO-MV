@@ -42,6 +42,10 @@ export interface Events {
 }
 
 export interface Event {
+  '@':
+  {
+    id: string
+  }
   name: string;
   x: number;
   y: number;
@@ -49,12 +53,12 @@ export interface Event {
 }
 
 export interface Pages {
-  EventPage: EventPage;
+  EventPage: EventPage[];
 }
 
 export interface EventPage {
   condition: Condition;
-  character_name: CharacterName;
+  character_name: string;
   character_index: number;
   character_direction: number;
   character_pattern: number;
@@ -70,10 +74,7 @@ export interface EventPage {
   event_commands: EventCommandsClass | string;
 }
 
-export enum CharacterName {
-  Empty = '',
-  People2 = 'People2'
-}
+
 
 export interface Condition {
   EventPageCondition: EventPageCondition;
