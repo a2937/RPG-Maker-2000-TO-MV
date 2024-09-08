@@ -18,6 +18,7 @@ import { buildMapTree } from './mv-to-2003/restore_map_tree.mjs';
 
 import { parse } from 'js2xmlparser';
 import { buildMap } from './mv-to-2003/restore_map.mjs';
+import { buildDatabase } from './mv-to-2003/restore_database.mjs';
 
 
 const program = new Command();
@@ -192,6 +193,23 @@ async function loadMVData()
 
   try {
 
+
+    console.log("Reading Actors");
+    const actorString = await fs.readFile(actorsPath,{encoding:"utf-8"});
+    const actors = JSON.parse(actorString); 
+    
+    console.log("Restoring database"); 
+
+    const databaseObject = buildDatabase(actors); 
+
+    console.log('Writing database to ' + oldDatabasePath);
+    const databaseXML = parse('LDB', databaseObject); 
+
+    await fs.writeFile(oldDatabasePath, databaseXML, {
+      encoding: 'utf-8'
+    });
+
+
     console.log("Reading maps");
     const files = await fs.readdir(oldPath);
     const matchedFiles = files.filter((file) => newMapPattern.test(file));
@@ -207,7 +225,7 @@ async function loadMVData()
         const number = parseInt(match[1]);
         const newMapData = buildMap(mapData);
         const newMapPath = path.join(
-          mvPath,
+          oldPath,
           'Map' + number.toString().padStart(4, '0') + '.emu'
         );
         const newMapXML = parse('LMU', newMapData); 
