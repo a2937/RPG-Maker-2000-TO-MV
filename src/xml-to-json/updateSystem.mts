@@ -1,6 +1,6 @@
 import { convertableToString, parseStringPromise } from 'xml2js';
-import { DBStart, DBSystem } from '../types/dbSystem.js';
-import { Airship, Bgm, Bgm2, Boat, Ship, System, Terms } from '../types/system.js';
+import { DBStart, DBSystem } from '../../types/dbSystem.js';
+import { Airship, Bgm, Bgm2, Boat, Ship, System, Terms } from '../../types/system.js';
 
 // TODO: Finish eventually 
 

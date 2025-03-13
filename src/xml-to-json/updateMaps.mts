@@ -1,8 +1,8 @@
 import { convertableToString, parseStringPromise } from 'xml2js';
-import { Event, Image, Map, Page, Conditions, Bgm, Bgs } from '../types/map.js';
-import { DBMap, DBEvent,DBPage} from '../types/dbMap.js';
-import { DBMapInfo } from '../types/dbMapInfos.js';
-import { remapMapEventCode } from './utilities/updateEventCodes.mjs';
+import { Event, Image, Map, Page, Conditions, Bgm, Bgs } from '../../types/map.js';
+import { DBMap, DBEvent,DBPage} from '../../types/dbMap.js';
+import { DBMapInfo } from '../../types/dbMapInfos.js';
+import { remapMapEventCode } from '../utilities/updateEventCodes.mjs';
 
 
 

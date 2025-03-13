@@ -1,6 +1,6 @@
 import { convertableToString, parseStringPromise } from 'xml2js';
-import { DBClass } from '../types/dbClass.js';
-import { Class } from '../types/class.js';
+import { DBClass } from '../../types/dbClass.js';
+import { Class } from '../../types/class.js';
 
 
 

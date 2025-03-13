@@ -1,7 +1,7 @@
 
 import { convertableToString, parseStringPromise } from 'xml2js';
-import { DBTileset} from '../types/dbTileset.js';
-import { Tileset } from '../types/tileset.js';
+import { DBTileset} from '../../types/dbTileset.js';
+import { Tileset } from '../../types/tileset.js';
 
 /**
  * @param {Tileset[]} tilesets

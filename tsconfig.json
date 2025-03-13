@@ -16,6 +16,6 @@
   "ts-node": {
     "esm": true // «———— enabling ESM for ts-node
   },
-  "include": ["src/**/*.ts", "src/updateActors.mts", "src/updateSkills.mts", "src/updateItems.mts", "src/updateEnemies.mts"],
+  "include": ["src/**/*.ts", "src/xml-to-json/updateActors.mts", "src/xml-to-json/updateSkills.mts", "src/xml-to-json/updateItems.mts", "src/xml-to-json/updateEnemies.mts"],
   "exclude": ["node_modules"]
 }

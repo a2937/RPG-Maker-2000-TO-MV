@@ -1,6 +1,6 @@
 import { convertableToString, parseStringPromise } from 'xml2js';
-import { DBEnemy } from '../types/dbEnemy.js';
-import { DropItem, Enemy } from '../types/enemy.js';
+import { DBEnemy } from '../../types/dbEnemy.js';
+import { DropItem, Enemy } from '../../types/enemy.js';
 
 /**
  * @param {Enemy[]} enemies

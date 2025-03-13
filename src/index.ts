@@ -1,35 +1,48 @@
 import path from 'path';
-import { updateActors } from './updateActors.mjs';
-import { updateClasses } from './updateClasses.mjs';
-import { updateCommonEvents } from './updateCommonEvents.mjs';
-import { updateSkills } from './updateSkills.mjs';
+import readline from 'node:readline';
+import { updateActors } from './xml-to-json/updateActors.mjs';
+import { updateClasses } from './xml-to-json/updateClasses.mjs';
+import { updateCommonEvents } from './xml-to-json/updateCommonEvents.mjs';
+import { updateSkills } from './xml-to-json/updateSkills.mjs';
 import fs from 'fs/promises';
-import { Command } from 'commander';
 import { PathLike } from 'fs';
-import { updateEnemies } from './updateEnemies.mjs';
-import { updateTroops } from './updateTroops.mjs';
-import { updateStates } from './updateStates.mjs';
-import { updateMapInfos } from './updateMapInfos.mjs';
-import { updateMap } from './updateMaps.mjs';
-import { updateTilesets} from './updateTilesets.mjs';
-import { updateSystem } from './updateSystem.mjs';
+import { updateEnemies } from './xml-to-json/updateEnemies.mjs';
+import { updateTroops } from './xml-to-json/updateTroops.mjs';
+import { updateStates } from './xml-to-json/updateStates.mjs';
+import { updateMapInfos } from './xml-to-json/updateMapInfos.mjs';
+import { updateMap } from './xml-to-json/updateMaps.mjs';
+import { updateTilesets} from './xml-to-json/updateTilesets.mjs';
+import { updateSystem } from './xml-to-json/updateSystem.mjs';
 
-const program = new Command();
 
-program
-  .option('-o, --old-path <path>', 'path to old database directory')
-  .option('-n, --new-path <path>', 'path to new database directory');
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
 
-program.parse(process.argv);
+let newPath = "";
+let oldPath = ""; 
 
-const options = program.opts();
+if (process.argv.length > 1)
+{
+  newPath = process.argv[1]; 
+}
+else 
+{
+  rl.question(
+    `What folder do you want to output to?`,
+    (newestPath) => {
+      newPath = newestPath; 
+    }
+  );
+}
 
-const oldPath = options.oldPath ? path.resolve(options.oldPath) : 'fixtures';
+rl.question(`What folder contains the 2000/03 RPG Maker files?`, (olderPath) => {
+  oldPath = olderPath; 
+  rl.close();
+});
 
-const newPath = options.newPath ? path.resolve(options.newPath) : 'output';
 
-const oldDatabasePath = path.join(oldPath, 'RPG_RT.edb');
-const oldMapTreePath = path.join(oldPath, 'RPG_RT.emt');
 const actorsPath = path.join(newPath, 'Actors.json');
 const classesPath = path.join(newPath, 'Classes.json');
 const commonEventsPath = path.join(newPath, 'CommonEvents.json');
@@ -40,6 +53,11 @@ const statesPath = path.join(newPath, 'States.json');
 const mapInfosPath = path.join(newPath, 'MapInfos.json');
 const tilesetsPath = path.join(newPath, 'Tilesets.json');
 const systemPath = path.join(newPath, 'System.json');
+
+
+const oldDatabasePath = path.join(oldPath, 'RPG_RT.edb');
+const oldMapTreePath = path.join(oldPath, 'RPG_RT.emt');
+
 
 const mapPattern = /^Map(\d{4})\.emu$/;
 

@@ -1,6 +1,6 @@
 import { convertableToString, parseStringPromise } from 'xml2js';
-import { DBState } from '../types/dbState.js';
-import { State } from '../types/state.js';
+import { DBState } from '../../types/dbState.js';
+import { State } from '../../types/state.js';
 
 /**
  * @param {State[]} states

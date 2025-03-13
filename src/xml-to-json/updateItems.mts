@@ -1,6 +1,6 @@
 import { convertableToString, parseStringPromise } from 'xml2js';
-import { DBItem } from '../types/dbItem.js';
-import { Damage, Effect, Item } from '../types/item.js';
+import { DBItem } from '../../types/dbItem.js';
+import { Damage, Effect, Item } from '../../types/item.js';
 
 /**
  * @param {Item[]} items

@@ -1,7 +1,7 @@
 import { convertableToString, parseStringPromise } from 'xml2js';
-import { DBCommonEvent } from '../types/dbCommonEvent.js';
-import { CommonEvent } from '../types/commonEvent.js';
-import { remapMapEventCode } from './utilities/updateEventCodes.mjs';
+import { DBCommonEvent } from '../../types/dbCommonEvent.js';
+import { CommonEvent } from '../../types/commonEvent.js';
+import { remapMapEventCode } from '../utilities/updateEventCodes.mjs';
 
 
 /**

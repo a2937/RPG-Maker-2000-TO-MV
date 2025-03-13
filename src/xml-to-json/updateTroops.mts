@@ -6,13 +6,13 @@ import {
   Page,
   Pages,
   Troop
-} from '../types/troop.js';
+} from '../../types/troop.js';
 import {
   DBPage,
   DBTroop,
   TroopMemberElement as DBMember
-} from '../types/dbTroop.js';
-import { remapMapEventCode } from './utilities/updateEventCodes.mjs';
+} from '../../types/dbTroop.js';
+import { remapMapEventCode } from '../utilities/updateEventCodes.mjs';
 
 
 /**
